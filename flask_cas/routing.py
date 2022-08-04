@@ -102,7 +102,7 @@ def validate(ticket):
     current_app.logger.debug("validating token {0}".format(ticket))
 
     cas_validate_url = create_cas_validate_url(
-        current_app.config['CAS_SERVER'],
+        current_app.config['CAS_VALIDATE_SERVER'],
         current_app.config['CAS_VALIDATE_ROUTE'],
         flask.url_for('.login', origin=flask.session.get('CAS_AFTER_LOGIN_SESSION_URL'), _external=True),
         ticket)

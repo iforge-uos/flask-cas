@@ -17,6 +17,7 @@ from . import routing
 
 from functools import wraps
 
+
 class CAS(object):
     """
     Required Configs:
@@ -24,6 +25,7 @@ class CAS(object):
     |Key             |
     |----------------|
     |CAS_SERVER      |
+    |CAS_VALIDATE_SERVER|
     |CAS_AFTER_LOGIN |
 
     Optional Configs:
@@ -66,7 +68,7 @@ class CAS(object):
 
     def teardown(self, exception):
         ctx = stack.top
-    
+
     @property
     def app(self):
         return self._app or current_app
@@ -86,21 +88,25 @@ class CAS(object):
         return flask.session.get(
             self.app.config['CAS_TOKEN_SESSION_KEY'], None)
 
+
 def login():
     return flask.redirect(flask.url_for('cas.login', _external=True))
 
+
 def logout():
     return flask.redirect(flask.url_for('cas.logout', _external=True))
+
 
 def login_required(function):
     @wraps(function)
     def wrap(*args, **kwargs):
         if 'CAS_USERNAME' not in flask.session:
             flask.session['CAS_AFTER_LOGIN_SESSION_URL'] = (
-                flask.request.script_root +
-                flask.request.full_path
+                    flask.request.script_root +
+                    flask.request.full_path
             )
             return login()
         else:
             return function(*args, **kwargs)
+
     return wrap

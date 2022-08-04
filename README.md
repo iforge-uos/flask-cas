@@ -5,6 +5,9 @@ Flask-CAS
 Flask-CAS is a Flask extension which makes it easy to
 authenticate with a CAS Server (v2.0+).
 
+## Fork ##
+This repository is forked for Docker compatibility
+
 ## What is CAS? ##
 
 The Central Authentication Service (CAS) is a single sign-on 
@@ -17,32 +20,15 @@ software package that implements this protocol.
 
 http://jasig.github.io/cas
 
-## Demo ##
-
-Want to see it in action? Here is a live demo that lets you 
-authenticate against your favorite CAS Server!
-
-http://flask-cas-extension-demo.cameronbwhite.com/
-
 ## Installation ##
 
-### PyPI ###
+### Pip ###
 
-Flask-CAS is available on PyPI! You can install it with pip.
+You can install with pip.
 
 ```sh
-pip install Flask-CAS
+pip install git+https://github.com/iforge-uos/flask-cas.git@master#egg=Flask-CAS
 ```
-
-### Manual ###
-
-If you want to do it the hard way you can clone the repository and
-install Flask-CAS in a virtualenv. 
-
-1. Clone it `git clone git@github.com:cameronbwhite/Flask-CAS.git`
-2. Enter it `cd Flask-CAS`
-3. Create a virtualenv and enter it (Optional) `virtualenv venv && source venv/bin/activate`
-4. Install it `python setup.py install`
 
 ## Instructions ##
 
@@ -111,22 +97,23 @@ def foo():
 
 #### Required Configs ####
 
-|Key             | Description                              | Example              |
-|----------------|------------------------------------------|----------------------|
-|CAS_SERVER      | URL of CAS                               | 'http://sso.pdx.edu' |  
-|CAS_AFTER_LOGIN | Endpoint to go to after successful login | 'root'               |
+| Key                 | Description                              | Example              |
+|---------------------|------------------------------------------|----------------------|
+| CAS_SERVER          | URL of CAS                               | 'http://sso.pdx.edu' |  
+| CAS_VALIDATE_SERVER | URL of CAS Validation Server             | 'http://sso.pdx.edu' |  
+| CAS_AFTER_LOGIN     | Endpoint to go to after successful login | 'root'               |
 
 #### Optional Configs ####
 
-|Key                        | Default               |
-|---------------------------|-----------------------|
-|CAS_TOKEN_SESSION_KEY      | _CAS_TOKEN            |
-|CAS_USERNAME_SESSION_KEY   | CAS_USERNAME          |
-|CAS_ATTRIBUTES_SESSION_KEY | CAS_ATTRIBUTES        |
-|CAS_LOGIN_ROUTE            | '/cas'                |
-|CAS_LOGOUT_ROUTE           | '/cas/logout'         |
-|CAS_VALIDATE_ROUTE         | '/cas/serviceValidate'|
-|CAS_AFTER_LOGOUT           | None                  |
+| Key                        | Default                |
+|----------------------------|------------------------|
+| CAS_TOKEN_SESSION_KEY      | _CAS_TOKEN             |
+| CAS_USERNAME_SESSION_KEY   | CAS_USERNAME           |
+| CAS_ATTRIBUTES_SESSION_KEY | CAS_ATTRIBUTES         |
+| CAS_LOGIN_ROUTE            | '/cas'                 |
+| CAS_LOGOUT_ROUTE           | '/cas/logout'          |
+| CAS_VALIDATE_ROUTE         | '/cas/serviceValidate' |
+| CAS_AFTER_LOGOUT           | None                   |
 
 ## Example ##
 
