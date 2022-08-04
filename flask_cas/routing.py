@@ -119,7 +119,7 @@ def validate(ticket):
         ctx.check_hostname = False
         ctx.verify_mode = ssl.CERT_NONE
 
-        xmldump = urlopen(cas_validate_url, ctx=ctx).read().strip().decode('utf8', 'ignore')
+        xmldump = urlopen(cas_validate_url, context=ctx).read().strip().decode('utf8', 'ignore')
         xml_from_dict = parse(xmldump)
         isValid = True if "cas:authenticationSuccess" in xml_from_dict["cas:serviceResponse"] else False
     except ValueError:
