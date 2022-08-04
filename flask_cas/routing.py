@@ -4,10 +4,11 @@ from flask import current_app
 from .cas_urls import create_cas_login_url
 from .cas_urls import create_cas_logout_url
 from .cas_urls import create_cas_validate_url
-
+import ssl
 
 try:
     from urllib import urlopen
+
 except ImportError:
     from urllib.request import urlopen
 
@@ -114,7 +115,11 @@ def validate(ticket):
     isValid = False
 
     try:
-        xmldump = urlopen(cas_validate_url).read().strip().decode('utf8', 'ignore')
+        ctx = ssl.create_default_context()
+        ctx.check_hostname = False
+        ctx.verify_mode = ssl.CERT_NONE
+
+        xmldump = urlopen(cas_validate_url, ctx=ctx).read().strip().decode('utf8', 'ignore')
         xml_from_dict = parse(xmldump)
         isValid = True if "cas:authenticationSuccess" in xml_from_dict["cas:serviceResponse"] else False
     except ValueError:
